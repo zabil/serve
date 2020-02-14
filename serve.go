@@ -7,13 +7,13 @@ import (
 )
 
 func main() {
-  optDirectory := flag.String("d", "./", "directory")
+  directory := flag.String("d", "./", "directory")
+  port := flag.String("p", "3000", "port")
   flag.Parse()
-  directory := *optDirectory;
 
-	http.Handle("/", http.FileServer(http.Dir(directory)))
+	http.Handle("/", http.FileServer(http.Dir(*directory)))
   done := make(chan bool)
-	go http.ListenAndServe(":3000", nil)
-	fmt.Println("http://localhost:3000")
+	go http.ListenAndServe(":" + *port, nil)
+	fmt.Println("http://localhost:" + *port)
   <-done
 }
