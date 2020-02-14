@@ -13,7 +13,9 @@ func main() {
 
 	http.Handle("/", http.FileServer(http.Dir(*directory)))
   done := make(chan bool)
-	go http.ListenAndServe(":" + *port, nil)
-	fmt.Println("http://localhost:" + *port)
+
+  bind := "localhost:" + *port
+	go http.ListenAndServe(bind, nil)
+	fmt.Println("Serving at http://" + bind)
   <-done
 }
